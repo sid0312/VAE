@@ -277,7 +277,7 @@ def evaluate_lower_bound(model, labeled_test_subset, visualize, run_iwae=True):
 def visualize_mnist(model):
     if isinstance(model, VAE):
         z = torch.distributions.Normal(torch.zeros(1), torch.ones(1))
-        logits = model.dec.decode(z)
+        logits = model.dec.decode(z.sample())
         print(logits.size())
 
     elif isinstance(model, GMVAE):
