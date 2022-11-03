@@ -276,7 +276,13 @@ def evaluate_lower_bound(model, labeled_test_subset, visualize, run_iwae=True):
 
         
 def visualize_mnist(model, labeled_test_subset):
-    print(len(labeled_test_subset))
+    try:
+        print(labeled_test_subset[0].shape)
+        print(labeled_test_subset[1].shape)
+    except:
+        print(labeled_test_subset[0].size())
+        print(labeled_test_subset[1].size())
+    
     
     
 def evaluate_classifier(model, test_set):
