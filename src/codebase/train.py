@@ -47,7 +47,8 @@ def train(model, train_loader, labeled_subset, device, tqdm, writer,
                     xu = xu.to(device).reshape(xu.size(0), -1)
                     yu = yu.new(np.eye(10)[yu]).to(device).float()
                     loss, summaries = model.loss(xu, yu)
-
+                print(loss)
+                np.save('loss.npy',loss)
                 loss.backward()
                 optimizer.step()
 
