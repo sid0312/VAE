@@ -43,4 +43,7 @@ if args.train:
 
 else:
     ut.load_model_by_name(vae, global_step=args.iter_max)
-    ut.evaluate_lower_bound(vae, labeled_subset, visualize, run_iwae=True)
+    if visualize:
+        ut.evaluate_lower_bound(vae, labeled_subset, visualize, run_iwae=False)
+    else:
+        ut.evaluate_lower_bound(vae, labeled_subset, visualize, run_iwae=True)
