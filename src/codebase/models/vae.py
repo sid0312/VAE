@@ -48,7 +48,7 @@ class VAE(nn.Module):
         m, v = self.enc.encode(x)
         z = ut.sample_gaussian(m, v)
         x_hat = self.dec.decode(z)
-        rec = ut.log_bernoulli_with_logits(x, x_hat)
+        rec = - ut.log_bernoulli_with_logits(x, x_hat)
         
         kl = ut.kl_normal(self.z_prior_m, self.z_prior_v, m, v)
         nelbo = kl + rec
