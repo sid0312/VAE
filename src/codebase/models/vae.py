@@ -51,11 +51,10 @@ class VAE(nn.Module):
         
         #z = ut.sample_gaussian(m, v)
         x_hat = self.dec.decode(z)
-        rec = torch.distributions.Normal(x_hat, self.z_prior_v).log_prob(x).sum(dim=1)
+        rec = torch.distributions.Normal(x_hat, self.z_prior_v).log_prob(x).mean(dim=1)
         
         kl = ut.kl_normal(m, v, self.z_prior_m, self.z_prior_v)
-        #nelbo = kl + rec
-        nelbo = kl
+        nelbo = kl + rec
 #         m,v = self.enc.encode(x)
 #         z = ut.sample_gaussian(m, v)
 #         s = torch.exp(self.z_prior_m)
