@@ -51,9 +51,10 @@ class VAE(nn.Module):
 
         x_hat = self.dec.decode(z)
         rec = torch.distributions.Normal(x_hat, self.z_prior_v).log_prob(x)
+        rec = rec.sum(dim=1)
+        
         kl = ut.kl_normal(m, v, self.z_prior_m, self.z_prior_v)
-        print(kl.size())
-        print(rec.size())
+        
         nelbo = kl + rec
         
         
