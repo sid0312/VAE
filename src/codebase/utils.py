@@ -277,7 +277,7 @@ def evaluate_lower_bound(model, labeled_test_subset, visualize, run_iwae=True):
         
 def visualize_mnist(model, labeled_test_subset):
     m, v = model.enc.encode(labeled_test_subset[0])
-    z = ut.sample_gaussian(m, v)
+    z = sample_gaussian(m, v)
     logits = model.dec.decode(z)
     print(logits.size())
     
