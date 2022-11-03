@@ -274,9 +274,12 @@ def evaluate_lower_bound(model, labeled_test_subset, run_iwae=True):
 def visualize_mnist(model):
     if isinstance(model, VAE):
         outputs = model.sample_x(200)
-        print(outputs.size())
-        plt.imshow(outputs.detach().numpy()[0])
-        plt.show()
+        outputs = outputs.view(200,28,28)
+        outputs = outputs.detach().numpy()
+        for i in range(0, 200):
+            plt.subplot(10,20,i+1)
+            plt.imshow(outputs[i], interpolation='none',cmap=plt.get_cmap('gray'))
+            plt.axis('off')
 
     elif isinstance(model, GMVAE):
         pass
