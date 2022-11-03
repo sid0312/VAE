@@ -270,16 +270,18 @@ def evaluate_lower_bound(model, labeled_test_subset, visualize, run_iwae=True):
             fn = lambda x: model.negative_iwae_bound(x, iw)
             niwae, kl, rec = compute_metrics(fn, repeat)
             print("Negative IWAE-{}: {}".format(iw, niwae))
-    
     if visualize and not run_iwae:
-        visualize_mnist(model, labeled_test_subset)
+        visualize_mnist(model)
 
         
-def visualize_mnist(model, labeled_test_subset):
-    m, v = model.enc.encode(labeled_test_subset[0])
-    z = sample_gaussian(m, v)
-    logits = model.dec.decode(z)
-    print(logits.size())
+def visualize_mnist(model):
+    if isinstance(model, VAE):
+        z = torch.distributions.Normal(torch.zeros(1))
+        logits = model.dec.decode(z)
+        print(logits.size())
+
+    elif isinstance(model, GMVAE):
+        pass
     
     
     
