@@ -40,6 +40,7 @@ if args.train:
           iter_max=args.iter_max,
           iter_save=args.iter_save)
     ut.evaluate_lower_bound(vae, labeled_subset, run_iwae=args.train == 2)
+    ut.visualize_mnist(vae)
 
 else:
     ut.load_model_by_name(vae, global_step=args.iter_max)
