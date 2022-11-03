@@ -270,8 +270,8 @@ def evaluate_lower_bound(model, labeled_test_subset, visualize, run_iwae=True):
             fn = lambda x: model.negative_iwae_bound(x, iw)
             niwae, kl, rec = compute_metrics(fn, repeat)
             print("Negative IWAE-{}: {}".format(iw, niwae))
-            
-   if visualize and not run_iwae:
+    
+    if visualize and not run_iwae:
         visualize_mnist(model, labeled_test_subset)
 
         
