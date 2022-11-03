@@ -46,12 +46,12 @@ class VAE(nn.Module):
         # End of code modification
         ################################################################################
         m, v = self.enc.encode(x)
-        z = ut.sample_gaussian(m, v)
+        q = torch.distributions.Normal(m,v)
+        z = q.rsample()
         
-
+        #z = ut.sample_gaussian(m, v)
         x_hat = self.dec.decode(z)
-        rec = torch.distributions.Normal(x_hat, self.z_prior_v).log_prob(x)
-        rec = rec.sum(dim=1)
+        rec = torch.distributions.Normal(x_hat, self.z_prior_v).log_prob(x).sum(dim=1)
         
         kl = ut.kl_normal(m, v, self.z_prior_m, self.z_prior_v)
         nelbo = kl + rec
