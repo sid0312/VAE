@@ -39,11 +39,11 @@ if args.train:
           writer=writer,
           iter_max=args.iter_max,
           iter_save=args.iter_save)
-    ut.evaluate_lower_bound(vae, labeled_subset, visualize, run_iwae=args.train == 2)
+    ut.evaluate_lower_bound(vae, labeled_subset, run_iwae=args.train == 2)
 
 else:
     ut.load_model_by_name(vae, global_step=args.iter_max)
     if visualize:
-        ut.evaluate_lower_bound(vae, labeled_subset, visualize, run_iwae=False)
+        ut.visualize_mnist(vae)
     else:
-        ut.evaluate_lower_bound(vae, labeled_subset, visualize, run_iwae=True)
+        ut.evaluate_lower_bound(vae, labeled_subset, run_iwae=True)
