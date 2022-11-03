@@ -14,6 +14,7 @@ parser.add_argument('--iter_max',  type=int, default=20000, help="Number of trai
 parser.add_argument('--iter_save', type=int, default=10000, help="Save model every n iterations")
 parser.add_argument('--run',       type=int, default=0,     help="Run ID. In case you want to run replicates")
 parser.add_argument('--train',     type=int, default=1,     help="Flag for training")
+parser.add_argment('--visualize',  type=int, default=0,     help="Flag for visualization. Set 1 for visualization")
 args = parser.parse_args()
 layout = [
     ('model={:s}',  'vae'),
@@ -38,7 +39,7 @@ if args.train:
           writer=writer,
           iter_max=args.iter_max,
           iter_save=args.iter_save)
-    ut.evaluate_lower_bound(vae, labeled_subset, run_iwae=args.train == 2)
+    ut.evaluate_lower_bound(vae, labeled_subset, visualize, run_iwae=args.train == 2)
 
 else:
     ut.load_model_by_name(vae, global_step=args.iter_max)
