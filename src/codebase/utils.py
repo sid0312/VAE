@@ -281,7 +281,8 @@ def visualize_mnist(model):
             plt.subplot(10,20,i+1)
             plt.imshow(outputs[i], interpolation='none',cmap=plt.get_cmap('gray'))
             plt.axis('off')
-
+        plt.savefig('./vae_10x20.png', dpi=300)
+        
     elif isinstance(model, GMVAE):
         pass
     
