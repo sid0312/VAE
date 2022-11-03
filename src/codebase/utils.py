@@ -360,7 +360,7 @@ def get_mnist_data(device, use_test_subset=True):
         yl += [y[idx][idx_choice]]
     xl = torch.cat(xl).to(device)
     yl = torch.cat(yl).to(device)
-    yl = yl.new(torch.eye(10)[yl]).to(device)
+    yl = yl.new(torch.eye(10).to(torch.int64)[yl]).to(device)
     labeled_subset = (xl, yl)
 
     return train_loader, labeled_subset, (X_test, y_test)
