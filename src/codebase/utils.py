@@ -276,6 +276,7 @@ def visualize_mnist(model):
         outputs = model.sample_x(200)
         outputs = outputs.view(200,28,28)
         outputs = outputs.detach().numpy()
+        plt.figure(figsize=[10,10])
         for i in range(0, 200):
             plt.subplot(10,20,i+1)
             plt.imshow(outputs[i], interpolation='none',cmap=plt.get_cmap('gray'))
