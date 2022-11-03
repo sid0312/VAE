@@ -236,7 +236,7 @@ def load_model_by_name(model, global_step):
 ################################################################################
 
 
-def evaluate_lower_bound(model, labeled_test_subset, visualize, run_iwae=True):
+def evaluate_lower_bound(model, labeled_test_subset, run_iwae=True):
     check_model = isinstance(model, VAE) or isinstance(model, GMVAE)
     assert check_model, "This function is only intended for VAE and GMVAE"
 
@@ -270,10 +270,7 @@ def evaluate_lower_bound(model, labeled_test_subset, visualize, run_iwae=True):
             fn = lambda x: model.negative_iwae_bound(x, iw)
             niwae, kl, rec = compute_metrics(fn, repeat)
             print("Negative IWAE-{}: {}".format(iw, niwae))
-    if visualize and not run_iwae:
-        visualize_mnist(model)
-
-        
+    
 def visualize_mnist(model):
     if isinstance(model, VAE):
         z = torch.distributions.Normal(torch.zeros(1), torch.ones(1))
