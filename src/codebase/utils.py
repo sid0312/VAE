@@ -45,7 +45,7 @@ def sample_gaussian(m, v):
     zeros = torch.zeros(n_shape)
     N = torch.distributions.Normal(zeros,ones)
     sample = N.sample()
-    z = m + (v*sample)
+    z = m + (torch.sqrt(v)*sample)
     return z
 
 def log_normal(x, m, v):
