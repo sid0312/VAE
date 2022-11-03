@@ -54,13 +54,7 @@ class VAE(nn.Module):
         rec = rec.sum(dim=1)
         
         kl = ut.kl_normal(m, v, self.z_prior_m, self.z_prior_v)
-        
-        
-        
         nelbo = kl + rec
-        
-        
-        print(nelbo)
 #         m,v = self.enc.encode(x)
 #         z = ut.sample_gaussian(m, v)
 #         s = torch.exp(self.z_prior_m)
@@ -71,7 +65,7 @@ class VAE(nn.Module):
        
 #         kl = ut.kl_normal(m, v, self.z_prior_m, self.z_prior_v)
 #         nelbo = kl + rec
-
+        nelbo = nelbo.mean()
         return nelbo, kl, rec
 
     def negative_iwae_bound(self, x, iw):
