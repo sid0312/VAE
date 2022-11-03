@@ -51,7 +51,7 @@ class VAE(nn.Module):
         P_x_given_z = torch.distributions.Normal(m, s)
         log_P_x_given_z = torch.exp(self.z_prior_m)
 
-        rec = log_P_x_given_z.sum(dim=(1, 2, 3))
+        rec = log_P_x_given_z.sum()
         kl = ut.kl_normal(m, v, self.z_prior_m, self.z_prior_v)
         nelbo = kl + rec
 
