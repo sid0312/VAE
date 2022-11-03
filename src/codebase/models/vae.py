@@ -49,9 +49,10 @@ class VAE(nn.Module):
         z = ut.sample_gaussian(m, v)
         s = torch.exp(self.z_prior_m)
         P_x_given_z = torch.distributions.Normal(m, s)
-        log_P_x_given_z = torch.exp(self.z_prior_m)
+        log_P_x_given_z = P_x_given_z.log_prob(x)
 
         rec = log_P_x_given_z.sum()
+       
         kl = ut.kl_normal(m, v, self.z_prior_m, self.z_prior_v)
         nelbo = kl + rec
 
